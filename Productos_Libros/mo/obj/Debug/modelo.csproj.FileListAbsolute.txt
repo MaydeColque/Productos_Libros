@@ -1,0 +1,6 @@
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\mo\bin\Debug\mo.dll
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\mo\bin\Debug\mo.pdb
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\mo\obj\Debug\modelo.csproj.AssemblyReference.cache
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\mo\obj\Debug\modelo.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\mo\obj\Debug\mo.dll
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\mo\obj\Debug\mo.pdb

@@ -1,0 +1,9 @@
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\jd\bin\Debug\jd.dll
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\jd\bin\Debug\jd.pdb
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\jd\bin\Debug\mo.dll
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\jd\bin\Debug\mo.pdb
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\jd\obj\Debug\negocio.csproj.AssemblyReference.cache
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\jd\obj\Debug\negocio.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\jd\obj\Debug\negocio.csproj.CopyComplete
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\jd\obj\Debug\jd.dll
+C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\jd\obj\Debug\jd.pdb
