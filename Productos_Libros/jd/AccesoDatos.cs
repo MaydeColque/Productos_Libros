@@ -20,7 +20,7 @@ namespace negocio
 
         //Constructor se conecta a la BD y se inicializa el comando
         public AccesoDatos() {
-        conexion = new SqlConnection("server=.\\SQLEXPRESS; database=Libros_DB; integrated security=true");
+        conexion = new SqlConnection("server=DESKTOP-NOFQN3B; database=Libros_DB; integrated security=true");
         comando = new SqlCommand();
     }
         // Función que sirve para modificar las consultas SQL
@@ -45,7 +45,7 @@ namespace negocio
             }
             catch (Exception ex)
             {
-
+                
                 throw ex;
             }
 

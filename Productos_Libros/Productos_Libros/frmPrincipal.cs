@@ -50,5 +50,35 @@ namespace Productos_Libros
             nuevoLibro.ShowDialog();
             cargarDGV();
         }
+
+        private void txtBuscador_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvLibros_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            FmrModificar Modicaciones = new FmrModificar();
+            Modicaciones.ShowDialog();
+        }
+
+        private void cBoxCriterios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGenerarList_Click(object sender, EventArgs e)
+        {
+            if((cBoxOrdenarPor.Text.Length==0) & (cBoxCriterios.Text.Length==0))
+            {
+                MessageBox.Show("Rellene los dos espacios vacios");
+            }
+
+        }
     }
 }
