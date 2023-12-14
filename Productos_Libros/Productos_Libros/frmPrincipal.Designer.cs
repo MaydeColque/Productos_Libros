@@ -41,7 +41,6 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnLimpiarBuscador = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.btnGenerarList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLibros)).BeginInit();
             this.grupListados.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +61,6 @@
             this.dgvLibros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvLibros.Size = new System.Drawing.Size(1289, 500);
             this.dgvLibros.TabIndex = 0;
-            this.dgvLibros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLibros_CellContentClick);
             // 
             // btnNuevoLibro
             // 
@@ -87,10 +85,10 @@
             this.txtBuscador.TabIndex = 2;
             this.txtBuscador.Text = "Buscar";
             this.txtBuscador.TextChanged += new System.EventHandler(this.txtBuscador_TextChanged);
+            this.txtBuscador.Enter += new System.EventHandler(this.txtBuscador_Enter);
             // 
             // grupListados
             // 
-            this.grupListados.Controls.Add(this.btnGenerarList);
             this.grupListados.Controls.Add(this.lblCriterios);
             this.grupListados.Controls.Add(this.lblOrdenar);
             this.grupListados.Controls.Add(this.cBoxCriterios);
@@ -124,15 +122,10 @@
             // 
             this.cBoxCriterios.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCriterios.FormattingEnabled = true;
-            this.cBoxCriterios.Items.AddRange(new object[] {
-            "Precio",
-            "Cantidad de Pagínas",
-            "Cantidad de Impresiones"});
             this.cBoxCriterios.Location = new System.Drawing.Point(941, 45);
             this.cBoxCriterios.Name = "cBoxCriterios";
             this.cBoxCriterios.Size = new System.Drawing.Size(172, 28);
             this.cBoxCriterios.TabIndex = 1;
-            this.cBoxCriterios.SelectedIndexChanged += new System.EventHandler(this.cBoxCriterios_SelectedIndexChanged);
             // 
             // cBoxOrdenarPor
             // 
@@ -157,19 +150,22 @@
             this.btnVerDetalle.Size = new System.Drawing.Size(109, 31);
             this.btnVerDetalle.TabIndex = 4;
             this.btnVerDetalle.Text = "Ver Detalle";
+            this.btnVerDetalle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVerDetalle.UseVisualStyleBackColor = false;
+            this.btnVerDetalle.Click += new System.EventHandler(this.btnVerDetalle_Click);
             // 
             // btnModificar
             // 
-            this.btnModificar.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnModificar.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnModificar.FlatAppearance.BorderSize = 0;
             this.btnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnModificar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnModificar.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.btnModificar.Location = new System.Drawing.Point(27, 126);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(109, 40);
+            this.btnModificar.Size = new System.Drawing.Size(109, 31);
             this.btnModificar.TabIndex = 5;
             this.btnModificar.Text = "Modificar";
+            this.btnModificar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
@@ -179,11 +175,12 @@
             this.btnEliminar.FlatAppearance.BorderSize = 0;
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminar.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.btnEliminar.Location = new System.Drawing.Point(27, 183);
+            this.btnEliminar.Location = new System.Drawing.Point(27, 172);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(109, 37);
+            this.btnEliminar.Size = new System.Drawing.Size(109, 31);
             this.btnEliminar.TabIndex = 6;
             this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEliminar.UseVisualStyleBackColor = false;
             // 
             // btnLimpiarBuscador
@@ -199,16 +196,7 @@
             this.btnLimpiarBuscador.TabIndex = 7;
             this.btnLimpiarBuscador.Text = "x";
             this.btnLimpiarBuscador.UseVisualStyleBackColor = false;
-            // 
-            // btnGenerarList
-            // 
-            this.btnGenerarList.Location = new System.Drawing.Point(1211, 45);
-            this.btnGenerarList.Name = "btnGenerarList";
-            this.btnGenerarList.Size = new System.Drawing.Size(162, 28);
-            this.btnGenerarList.TabIndex = 4;
-            this.btnGenerarList.Text = "Generar Listado";
-            this.btnGenerarList.UseVisualStyleBackColor = true;
-            this.btnGenerarList.Click += new System.EventHandler(this.btnGenerarList_Click);
+            this.btnLimpiarBuscador.Click += new System.EventHandler(this.btnLimpiarBuscador_Click);
             // 
             // frmPrincipal
             // 
@@ -252,7 +240,6 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnLimpiarBuscador;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Button btnGenerarList;
     }
 }
 

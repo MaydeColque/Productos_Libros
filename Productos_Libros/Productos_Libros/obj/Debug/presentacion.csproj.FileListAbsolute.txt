@@ -15,20 +15,3 @@ C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. S
 C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\Productos_Libros\obj\Debug\Productos_Libros.exe
 C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\Productos_Libros\obj\Debug\Productos_Libros.pdb
 C:\Users\Usuario\OneDrive\Documents\Formaciones, cursos y meetings\CUDI - Tec. Sistemas Informaticos\2do Cuatrimestre - 1er año\Programación II\Productos_Libros\Productos_Libros\obj\Debug\Productos_Libros.frmCrudDatos.resources
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\bin\Debug\Productos_Libros.exe.config
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\bin\Debug\Productos_Libros.exe
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\bin\Debug\Productos_Libros.pdb
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\bin\Debug\jd.dll
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\bin\Debug\mo.dll
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\bin\Debug\jd.pdb
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\bin\Debug\mo.pdb
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\presentacion.csproj.AssemblyReference.cache
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\Productos_Libros.frmCrudDatos.resources
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\Productos_Libros.frmPrincipal.resources
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\Productos_Libros.Properties.Resources.resources
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\presentacion.csproj.GenerateResource.cache
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\presentacion.csproj.CoreCompileInputs.cache
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\presentacion.csproj.CopyComplete
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\Productos_Libros.exe
-C:\Users\54112\Source\Repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\Productos_Libros.pdb
-C:\Users\54112\source\repos\Productos_Libros\Productos_Libros\Productos_Libros\obj\Debug\Productos_Libros.FmrModificar.resources

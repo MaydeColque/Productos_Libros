@@ -64,6 +64,9 @@
             this.lblAlertaPrecioCompra = new System.Windows.Forms.Label();
             this.lblAlertaPrecioVenta = new System.Windows.Forms.Label();
             this.lblAlertaIsbn = new System.Windows.Forms.Label();
+            this.txtEditorial = new System.Windows.Forms.TextBox();
+            this.txtIdioma = new System.Windows.Forms.TextBox();
+            this.txtAutor = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtTitulo
@@ -417,12 +420,39 @@
             this.lblAlertaIsbn.Text = "*Debe tener 14 números";
             this.lblAlertaIsbn.Visible = false;
             // 
+            // txtEditorial
+            // 
+            this.txtEditorial.Location = new System.Drawing.Point(48, 159);
+            this.txtEditorial.Name = "txtEditorial";
+            this.txtEditorial.Size = new System.Drawing.Size(177, 26);
+            this.txtEditorial.TabIndex = 39;
+            this.txtEditorial.Visible = false;
+            // 
+            // txtIdioma
+            // 
+            this.txtIdioma.Location = new System.Drawing.Point(48, 244);
+            this.txtIdioma.Name = "txtIdioma";
+            this.txtIdioma.Size = new System.Drawing.Size(177, 26);
+            this.txtIdioma.TabIndex = 40;
+            this.txtIdioma.Visible = false;
+            // 
+            // txtAutor
+            // 
+            this.txtAutor.Location = new System.Drawing.Point(48, 72);
+            this.txtAutor.Name = "txtAutor";
+            this.txtAutor.Size = new System.Drawing.Size(177, 26);
+            this.txtAutor.TabIndex = 41;
+            this.txtAutor.Visible = false;
+            // 
             // frmCrudDatos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(711, 484);
+            this.Controls.Add(this.txtAutor);
+            this.Controls.Add(this.txtIdioma);
+            this.Controls.Add(this.txtEditorial);
             this.Controls.Add(this.lblAlertaIsbn);
             this.Controls.Add(this.lblAlertaPrecioVenta);
             this.Controls.Add(this.lblAlertaPrecioCompra);
@@ -506,5 +536,8 @@
         private System.Windows.Forms.Label lblAlertaPrecioCompra;
         private System.Windows.Forms.Label lblAlertaPrecioVenta;
         private System.Windows.Forms.Label lblAlertaIsbn;
+        private System.Windows.Forms.TextBox txtEditorial;
+        private System.Windows.Forms.TextBox txtIdioma;
+        private System.Windows.Forms.TextBox txtAutor;
     }
 }

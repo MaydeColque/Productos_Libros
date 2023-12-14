@@ -17,6 +17,7 @@ namespace Productos_Libros
         //Helpers
         List<Libro> listaLibros;
         bool camposCorrectamenteCompletos;
+        Libro libroRecibido = null;
         //bool itemNuevo;
 
 
@@ -27,6 +28,19 @@ namespace Productos_Libros
             InitializeComponent();
             listaLibros= new List<Libro>();
             btnAceptar.Text = "Guardar";
+        }
+        public frmCrudDatos(Libro libroRecibido)
+        {
+            InitializeComponent();
+            this.libroRecibido = libroRecibido;
+            btnCancelar.Text= "Cerrar";
+            btnAceptar.Visible = false;
+            cBxAutor.Visible = false;
+            txtAutor.Visible = true;
+            cBxEditorial.Visible = false;
+            txtEditorial.Visible = true;
+            txtIdioma.Visible = true;
+            cBxIdioma.Visible= false;
         }
         //Métodos
         /*
@@ -242,16 +256,44 @@ namespace Productos_Libros
             lblAlertaNroEdicion.Visible = false;
 
         }
-        
+        private void deshabilitarControles()
+        {
+            // Deshabilita todos los controles en la ventana
+            foreach (Control control in Controls)
+            {
+                control.Enabled = false;
+            }
+            btnCancelar.Enabled = true;
+        }
+
         //Eventos
         private void frmCrudDatos_Load(object sender, EventArgs e)
         {
-            cargarCbxAutor();
-            cargarCbxEditorial();
-            cargarCbxIdioma();
-            cBxAutor.SelectedIndex = -1;
-            cBxEditorial.SelectedIndex = -1;
-            cBxIdioma.SelectedIndex = -1;
+            if (libroRecibido != null)
+            {
+                
+                txtAutor.Text = libroRecibido.Autor.Nombre;
+                txtTitulo.Text = libroRecibido.Titulo; 
+                txtAnioEdicion.Text = $"{libroRecibido.Anio_edicion}";
+                txtIsbn.Text = libroRecibido.ISBN;
+                txtEditorial.Text = libroRecibido.Editorial.Nombre;
+                txtIdioma.Text = libroRecibido.Idioma.idioma;
+                txtNroEdicion.Text = $"{libroRecibido.Nro_edicion}";
+                txtPaginas.Text = $"{libroRecibido.Cant_paginas}";
+                txtImpresiones.Text = $"{libroRecibido.Cant_impresiones}";
+                txtPrecioCompra.Text = $"{libroRecibido.Precio_compra}";
+                txtPrecioVenta.Text = $"{libroRecibido.Precio_venta}";
+                deshabilitarControles();
+            }
+            else
+            {
+                cargarCbxAutor();
+                cargarCbxEditorial();
+                cargarCbxIdioma();
+                cBxAutor.SelectedIndex = -1;
+                cBxEditorial.SelectedIndex = -1;
+                cBxIdioma.SelectedIndex = -1;
+            }
         }
         public void actualizarListaLibros()
         {

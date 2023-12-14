@@ -94,36 +94,5 @@ namespace negocio
             }
             finally { datos.cerrarConexion(); }
         }
-
-        public void modificar(Libro modificarLibro)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setConsulta("Uptade Libros SET id=@id, isbn=@isbn, idAutor=@idAutor, idEditorial=@idEditorial, idIdioma=@idIdioma, anioEdicion=@anioEdicion, cantPaginas=@cantPaginas, cantImpresiones=@cantImpresiones");
-                datos.setParametro("@id", modificarLibro.Id);
-                datos.setParametro("@isbn", modificarLibro.ISBN);
-                datos.setParametro("@idAutor", modificarLibro.Autor.Id_autor);
-                datos.setParametro("@anioEdicion", modificarLibro.Anio_edicion);
-                datos.setParametro("@nroEdicion", modificarLibro.Nro_edicion);
-                datos.setParametro("precioVenta", modificarLibro.Precio_venta);
-                datos.setParametro("@precioCompra", modificarLibro.Precio_compra);
-                datos.setParametro("@idIdioma", modificarLibro.Idioma.Id_idioma);
-                datos.setParametro("@cantPaginas", modificarLibro.Cant_paginas);
-                datos.setParametro("cantImpresiones", modificarLibro.Cant_impresiones);
-                datos.setParametro("@idEditorial", modificarLibro.Editorial.Id_editorial);
-
-                datos.ejecutarInstruccion();
-
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally { datos.cerrarConexion(); }
-        }
-
-
-
     }
 }
