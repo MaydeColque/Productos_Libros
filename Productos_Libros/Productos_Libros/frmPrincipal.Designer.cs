@@ -122,6 +122,10 @@
             // 
             this.cBoxCriterios.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCriterios.FormattingEnabled = true;
+            this.cBoxCriterios.Items.AddRange(new object[] {
+            "Precio Venta",
+            "Impresiones",
+            "Páginas"});
             this.cBoxCriterios.Location = new System.Drawing.Point(941, 45);
             this.cBoxCriterios.Name = "cBoxCriterios";
             this.cBoxCriterios.Size = new System.Drawing.Size(172, 28);

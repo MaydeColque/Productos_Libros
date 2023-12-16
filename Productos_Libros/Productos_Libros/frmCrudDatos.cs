@@ -18,52 +18,66 @@ namespace Productos_Libros
         List<Libro> listaLibros;
         bool camposCorrectamenteCompletos;
         Libro libroRecibido = null;
-        //bool itemNuevo;
-
-
+        //modificacion: 3
+        bool modificar = false;
+        int idLibroModificar = 0;
+        string isbnActualLibro;
+        //hasta aqui
 
         //Constructores
         public frmCrudDatos()
         {
             InitializeComponent();
             listaLibros= new List<Libro>();
-            btnAceptar.Text = "Guardar";
         }
-        public frmCrudDatos(Libro libroRecibido)
+
+        //modificacion:4 todo el constructor este
+        public frmCrudDatos(Libro libroRecibido, bool modificar)
         {
             InitializeComponent();
+            listaLibros = new List<Libro>();
             this.libroRecibido = libroRecibido;
-            btnCancelar.Text= "Cerrar";
-            btnAceptar.Visible = false;
-            cBxAutor.Visible = false;
-            txtAutor.Visible = true;
-            cBxEditorial.Visible = false;
-            txtEditorial.Visible = true;
-            txtIdioma.Visible = true;
-            cBxIdioma.Visible= false;
+            if (!modificar)
+            {
+                btnCancelar.Text = "Cerrar";
+                btnAceptar.Visible = false;
+                cBxAutor.Visible = false;
+                txtAutor.Visible = true;
+                cBxEditorial.Visible = false;
+                txtEditorial.Visible = true;
+                txtIdioma.Visible = true;
+                cBxIdioma.Visible = false;
+            }
+            else
+            {
+                cBxAutor.Visible = true;
+                txtAutor.Visible = false;
+                cBxEditorial.Visible = true;
+                txtEditorial.Visible = false;
+                txtIdioma.Visible = false;
+                cBxIdioma.Visible = true;
+                btnAceptar.Text = "Modificar";
+            }
+            
+            this.modificar = modificar;
         }
         //Métodos
-        /*
-         
-        public void cargarCBX()
-        {
-            AutorNegocio autor = new AutorNegocio();
-            cBxAutor.DataSource = autor.listaAutores();
-            cBxAutor.ValueMember = "Id_autor";
-            cBxAutor.DisplayMember = "Nombre";
-            EditorialNegocio editorial= new EditorialNegocio();
-            cBxEditorial.DataSource = editorial.listaEditorial();
-            cBxEditorial.ValueMember = "Id_editorial";
-            cBxEditorial.DisplayMember = "Nombre";
-            IdiomaNegocio idioma = new IdiomaNegocio();
-            cBxIdioma.DataSource = idioma.listaIdioma();
-            cBxIdioma.ValueMember = "Id_idioma";
-            cBxIdioma.DisplayMember = "idioma";
-        }
-         
-         */
+        //Modificacion: 5 metodo isbnrepetido
         public bool isbnRepetido()
         {
+            if (modificar)
+            {
+                //Se elimina el libro de la lista para que no coincida con el isbn actual
+                for (int x = 0; x < listaLibros.Count; x++)
+                {
+                    if (listaLibros[x].ISBN == isbnActualLibro)
+                    {
+                        idLibroModificar = listaLibros[x].Id;
+                        listaLibros.RemoveAt(x);
+                    }
+                }
+            }
+
             if (listaLibros.Any(x => x.ISBN == txtIsbn.Text))
             {
                 return true;
@@ -93,7 +107,6 @@ namespace Productos_Libros
         }
         public void verificarDatos()
         {
-            //itemNuevo = false;
             camposCorrectamenteCompletos = false;
             if (isbnRepetido() || txtIsbn.Text.Length != 14 || !esNumero(txtIsbn.Text))
             {
@@ -129,7 +142,6 @@ namespace Productos_Libros
                 }
                 else
                 {
-                    //REVISAR
                     lblAlertaAutor.Visible = true;
                 }
 
@@ -226,7 +238,6 @@ namespace Productos_Libros
 
             return true;
         }
-       
          
         public void reestablecerDatos()
         {
@@ -265,31 +276,58 @@ namespace Productos_Libros
             }
             btnCancelar.Enabled = true;
         }
+        //Modificacion: 6 - metodo mostrarDatos
+        private void mostrarDatos()
+        {
+            isbnActualLibro = libroRecibido.ISBN;
+            txtTitulo.Text = libroRecibido.Titulo;
+            txtAnioEdicion.Text = $"{libroRecibido.Anio_edicion}";
+            txtIsbn.Text = isbnActualLibro;
+            txtNroEdicion.Text = $"{libroRecibido.Nro_edicion}";
+            txtPaginas.Text = $"{libroRecibido.Cant_paginas}";
+            txtImpresiones.Text = $"{libroRecibido.Cant_impresiones}";
+            txtPrecioCompra.Text = $"{libroRecibido.Precio_compra}";
+            txtPrecioVenta.Text = $"{libroRecibido.Precio_venta}";
+            
+            if (modificar)
+            {
+                int indexA = cBxAutor.FindStringExact(libroRecibido.Autor.ToString());
+                int indexE = cBxEditorial.FindStringExact(libroRecibido.Editorial.ToString());
+                int indexI = cBxIdioma.FindStringExact(libroRecibido.Idioma.ToString());
+                cBxAutor.SelectedIndex = indexA;
+                cBxEditorial.SelectedIndex = indexE;
+                cBxIdioma.SelectedIndex= indexI;
+            }
+            else
+            {
+                txtAutor.Text = libroRecibido.Autor.Nombre;
+                txtEditorial.Text = libroRecibido.Editorial.Nombre;
+                txtIdioma.Text = libroRecibido.Idioma.idioma;
+
+            }
+
+        }
 
         //Eventos
         private void frmCrudDatos_Load(object sender, EventArgs e)
         {
+            //Modificacion: 7 - todo el load
+            cargarCbxAutor();
+            cargarCbxEditorial();
+            cargarCbxIdioma();
+
             if (libroRecibido != null)
             {
-                
-                txtAutor.Text = libroRecibido.Autor.Nombre;
-                txtTitulo.Text = libroRecibido.Titulo; 
-                txtAnioEdicion.Text = $"{libroRecibido.Anio_edicion}";
-                txtIsbn.Text = libroRecibido.ISBN;
-                txtEditorial.Text = libroRecibido.Editorial.Nombre;
-                txtIdioma.Text = libroRecibido.Idioma.idioma;
-                txtNroEdicion.Text = $"{libroRecibido.Nro_edicion}";
-                txtPaginas.Text = $"{libroRecibido.Cant_paginas}";
-                txtImpresiones.Text = $"{libroRecibido.Cant_impresiones}";
-                txtPrecioCompra.Text = $"{libroRecibido.Precio_compra}";
-                txtPrecioVenta.Text = $"{libroRecibido.Precio_venta}";
-                deshabilitarControles();
+                mostrarDatos();
+
+                if (!modificar)
+                {
+                    deshabilitarControles();
+
+                }
             }
             else
             {
-                cargarCbxAutor();
-                cargarCbxEditorial();
-                cargarCbxIdioma();
                 cBxAutor.SelectedIndex = -1;
                 cBxEditorial.SelectedIndex = -1;
                 cBxIdioma.SelectedIndex = -1;
@@ -297,9 +335,15 @@ namespace Productos_Libros
         }
         public void actualizarListaLibros()
         {
-
-            LibroNegocio libroNegocio = new LibroNegocio();
-            listaLibros = libroNegocio.ListarLibros();
+            //Modificacion: 8 - este metodo tambien
+            bool primeraVez = true;
+            if (primeraVez)
+            {
+                LibroNegocio libroNegocio = new LibroNegocio();
+                listaLibros = libroNegocio.ListarLibros();
+                primeraVez = false;
+            }
+            
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -321,35 +365,56 @@ namespace Productos_Libros
                 libro.Cant_paginas = int.Parse(txtPaginas.Text);
                 libro.Precio_venta = decimal.Parse(txtPrecioVenta.Text);
                 libro.Precio_compra = decimal.Parse(txtPrecioCompra.Text);
-
+                //Modificacion: 9 
                 LibroNegocio libroNegocio = new LibroNegocio();
-                libroNegocio.agregar(libro);
-                DialogResult respuesta = MessageBox.Show("Agregado con éxito! ¿Deseas continuar con el ingreso de nuevos libros?", "Nuevo libro", MessageBoxButtons.YesNo);
-                if (respuesta == DialogResult.Yes)
+                if (modificar)
                 {
-                    reestablecerDatos();
+                    libro.Id = idLibroModificar;
+                    libroNegocio.modificar(libro);
+                    MessageBox.Show("Datos Actualizados correctamente", "Actualización de Datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Close();
                 }
                 else
                 {
-                    Close();
+                    libroNegocio.agregar(libro);
+                    DialogResult respuesta = MessageBox.Show("¡Agregado con éxito! ¿Deseas continuar con el ingreso de nuevos libros?", "Nuevo libro", MessageBoxButtons.YesNo);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        reestablecerDatos();
+                    }
+                    else
+                    {
+                        Close();
+                    }
+
                 }
+
+                
             }
-            /*
-            else if(!itemNuevo)
-            {
-                MessageBox.Show("Los campos deben ser correctamente completados antes de guardar un libro. Por favor, verificalos.");
-            }
-             */
+
+
 
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+    /*
+     if (modificar)
+            {
+                LibroNegocio libro = new LibroNegocio();
+                libro.modificar(libro);
+
+            }
+            else
+            {
+     
+     */
+    private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
         }
 
         private void txtIsbn_Leave(object sender, EventArgs e)
         {
+            actualizarListaLibros();
             if (esNumero(txtIsbn.Text) && !isbnRepetido())
             {
                 txtIsbn.BackColor = Color.LightGreen;

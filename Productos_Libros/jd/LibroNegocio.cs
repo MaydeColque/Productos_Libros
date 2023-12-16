@@ -1,6 +1,7 @@
 ﻿using modelo;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace negocio
 
             try
             {
-                datos.setConsulta("select id_libro id, isbn, titulo, A.nombre autor, L.id_autor id_autor, anio_edicion,E.nombre editorial, L.id_editorial id_editorial, nro_edicion, precio_venta, precio_compra, I.nombre idioma, L.id_idioma id_idioma, cant_paginas, cant_impresiones from Libro L, Autor A, Editorial E, Idioma I where L.id_autor = A.id_autor AND L.id_editorial = E.id_editorial AND L.id_idioma = I.id_idioma");
+                string consulta = $"select id_libro id, isbn, titulo, A.nombre autor, L.id_autor id_autor, anio_edicion,E.nombre editorial, L.id_editorial id_editorial, nro_edicion, precio_venta, precio_compra, I.nombre idioma, L.id_idioma id_idioma, cant_paginas, cant_impresiones from Libro L, Autor A, Editorial E, Idioma I where L.id_autor = A.id_autor AND L.id_editorial = E.id_editorial AND L.id_idioma = I.id_idioma";
+                datos.setConsulta(consulta);
                 datos.ejecutarLector();
 
                 while (datos.Lector.Read())
@@ -93,6 +95,57 @@ namespace negocio
                 throw;
             }
             finally { datos.cerrarConexion(); }
+
         }
-    }
+
+        public void EliminarLibroDeBaseDeDatos(int libroId)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                {
+                    datos.setConsulta("DELETE FROM Libro WHERE Id = @LibroId");
+                    datos.setParametro("@LibroId", libroId);
+                    datos.ejecutarInstruccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
+
+        }
+        //Modificacion: 10 - metodo modificar
+        public void modificar(Libro libro)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("update Libro set isbn = @isbn, titulo = @titulo, id_autor = @idAutor, id_editorial = @idEditorial, nro_edicion = @nroEdicion, precio_venta = @precioVenta, precio_compra = @precioCompra, id_idioma = @idIdioma, anio_edicion = @anio, cant_paginas = @cantPaginas, cant_impresiones = @cantImpresiones where id_libro = @id");
+                datos.setParametro("@id", libro.Id);
+                datos.setParametro("@isbn", libro.ISBN);
+                datos.setParametro("@titulo", libro.Titulo);
+                datos.setParametro("@idAutor", libro.Autor.Id_autor);
+                datos.setParametro("@idEditorial", libro.Editorial.Id_editorial);
+                datos.setParametro("@nroEdicion", libro.Nro_edicion);
+                datos.setParametro("@precioVenta", libro.Precio_venta);
+                datos.setParametro("@precioCompra", libro.Precio_compra);
+                datos.setParametro("@idIdioma", libro.Idioma.Id_idioma);
+                datos.setParametro("@anio", libro.Anio_edicion);
+                datos.setParametro("@cantPaginas", libro.Cant_paginas);
+                datos.setParametro("@cantImpresiones", libro.Cant_impresiones);
+
+                datos.ejecutarInstruccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally { datos.cerrarConexion();}
+
+        }
+        
+}
 }
