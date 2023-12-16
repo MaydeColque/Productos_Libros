@@ -32,6 +32,7 @@
             this.btnNuevoLibro = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
             this.grupListados = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.lblCriterios = new System.Windows.Forms.Label();
             this.lblOrdenar = new System.Windows.Forms.Label();
             this.cBoxCriterios = new System.Windows.Forms.ComboBox();
@@ -89,6 +90,7 @@
             // 
             // grupListados
             // 
+            this.grupListados.Controls.Add(this.button1);
             this.grupListados.Controls.Add(this.lblCriterios);
             this.grupListados.Controls.Add(this.lblOrdenar);
             this.grupListados.Controls.Add(this.cBoxCriterios);
@@ -99,6 +101,16 @@
             this.grupListados.TabIndex = 3;
             this.grupListados.TabStop = false;
             this.grupListados.Text = "Generar Listados";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1236, 35);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(137, 48);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Generar Listado";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblCriterios
             // 
@@ -122,22 +134,16 @@
             // 
             this.cBoxCriterios.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCriterios.FormattingEnabled = true;
-            this.cBoxCriterios.Items.AddRange(new object[] {
-            "Precio Venta",
-            "Impresiones",
-            "Páginas"});
             this.cBoxCriterios.Location = new System.Drawing.Point(941, 45);
             this.cBoxCriterios.Name = "cBoxCriterios";
             this.cBoxCriterios.Size = new System.Drawing.Size(172, 28);
             this.cBoxCriterios.TabIndex = 1;
+            this.cBoxCriterios.SelectedIndexChanged += new System.EventHandler(this.cBoxCriterios_SelectedIndexChanged);
             // 
             // cBoxOrdenarPor
             // 
             this.cBoxOrdenarPor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxOrdenarPor.FormattingEnabled = true;
-            this.cBoxOrdenarPor.Items.AddRange(new object[] {
-            "Máximos",
-            "Mínimos"});
             this.cBoxOrdenarPor.Location = new System.Drawing.Point(554, 45);
             this.cBoxOrdenarPor.Name = "cBoxOrdenarPor";
             this.cBoxOrdenarPor.Size = new System.Drawing.Size(160, 28);
@@ -186,6 +192,7 @@
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnLimpiarBuscador
             // 
@@ -244,6 +251,7 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnLimpiarBuscador;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

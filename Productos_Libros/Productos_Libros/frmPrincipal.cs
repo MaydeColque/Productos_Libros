@@ -65,6 +65,11 @@ namespace Productos_Libros
         //Eventos
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
+            cBoxOrdenarPor.Items.Add("Máximos");
+            cBoxOrdenarPor.Items.Add("Minímos");
+            cBoxCriterios.Items.Add("Precio Venta");
+            cBoxCriterios.Items.Add("Impresiones");
+            cBoxCriterios.Items.Add("Páginas");
             cargarDGV();
             estiloDGV();
         }
@@ -125,162 +130,77 @@ namespace Productos_Libros
             }
         }
 
-        /*
-        private void btnGenerarLista_Click(object sender, EventArgs e)
-        {
-            int opcionOrdenar = cBoxOrdenarPor.SelectedIndex;
-            int opcionCriterio = cBoxCriterios.SelectedIndex;
-            if ( opcionOrdenar > 0 && opcionCriterio > 0)
-            {
-                if (opcionOrdenar == 1)
-                {
-                    nuevaListaDGV(dgvLibros, listaMinimos(opcionCriterio));
-                }
-                else
-                {
-                    nuevaListaDGV(dgvLibros, listaMaximos(opcionCriterio));
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, seleccione una opción en ambos campos.", "Falta seleccionar campos...");
-            }
-        }
-        //crear listados máximos y mínimos
-        public List<Libro> listaMinimos(int indexCriterio)
-        {
-            List<Libro> listaMin = librosExtraidos;
-            int cantLibros = listaMin.Count;
-            switch (indexCriterio)
-            {
-                case 1:
-                    //precio venta
-                    decimal aux;
-                    for (int i = 0; i < cantLibros; i++)
-                    {
-                        for (int x = 0; x < (cantLibros - 1); x++)
-                        {
-                            if (listaMin[x].Precio_venta > listaMin[x+1].Precio_venta)
-                            {
-                                aux = listaMin[x].Precio_venta;
-                                listaMin[x].Precio_venta = listaMin[x + 1].Precio_venta;
-                                listaMin[x + 1].Precio_venta = aux;
-                            }
-                        }
-                    }
-                    break; 
-                case 2:
-                    //impresiones
-                    int impresiones;
-                    for (int i = 0; i < cantLibros; i++)
-                    {
-                        for (int x = 0; x < (cantLibros - 1); x++)
-                        {
-                            if (listaMin[x].Cant_impresiones > listaMin[x + 1].Cant_impresiones)
-                            {
-                                impresiones = listaMin[x].Cant_impresiones;
-                                listaMin[x].Cant_impresiones = listaMin[x + 1].Cant_impresiones;
-                                listaMin[x + 1].Cant_impresiones = impresiones;
-                            }
-                        }
-                    }
-                    break;
-                case 3:
-                    //paginas
-                    int paginas;
-                    for (int i = 0; i < cantLibros; i++)
-                    {
-                        for (int x = 0; x < (cantLibros - 1); x++)
-                        {
-                            if (listaMin[x].Cant_paginas > listaMin[x + 1].Cant_paginas)
-                            {
-                                paginas = listaMin[x].Cant_paginas;
-                                listaMin[x].Cant_paginas = listaMin[x + 1].Cant_paginas;
-                                listaMin[x + 1].Cant_paginas = paginas;
-                            }
-                        }
-                    }
-                    break;
-            }
-            return listaMin;
-
-        }
-        public List<Libro> listaMaximos(int indexCriterio)
-        {
-            List<Libro> listaMax = librosExtraidos;
-            int cantLibros = listaMax.Count;
-            switch (indexCriterio)
-            {
-                case 1:
-                    //precio venta
-                    decimal aux;
-                    for (int i = 0; i < cantLibros; i++)
-                    {
-                        for (int x = 0; x < (cantLibros - 1); x++)
-                        {
-                            if (listaMax[x].Precio_venta < listaMax[x + 1].Precio_venta)
-                            {
-                                aux = listaMax[x].Precio_venta;
-                                listaMax[x].Precio_venta = listaMax[x + 1].Precio_venta;
-                                listaMax[x + 1].Precio_venta = aux;
-                            }
-                        }
-                    }
-                    break;
-                case 2:
-                    //impresiones
-                    int impresiones;
-                    for (int i = 0; i < cantLibros; i++)
-                    {
-                        for (int x = 0; x < (cantLibros - 1); x++)
-                        {
-                            if (listaMax[x].Cant_impresiones < listaMax[x + 1].Cant_impresiones)
-                            {
-                                impresiones = listaMax[x].Cant_impresiones;
-                                listaMax[x].Cant_impresiones = listaMax[x + 1].Cant_impresiones;
-                                listaMax[x + 1].Cant_impresiones = impresiones;
-                            }
-                        }
-                    }
-                    break;
-                case 3:
-                    //páginas
-                    int paginas;
-                    for (int i = 0; i < cantLibros; i++)
-                    {
-                        for (int x = 0; x < (cantLibros - 1); x++)
-                        {
-                            if (listaMax[x].Cant_paginas < listaMax[x + 1].Cant_paginas)
-                            {
-                                paginas = listaMax[x].Cant_paginas;
-                                listaMax[x].Cant_paginas = listaMax[x + 1].Cant_paginas;
-                                listaMax[x + 1].Cant_paginas = paginas;
-                            }
-                        }
-                    }
-                    break;
-            }
-            return listaMax;
-        }
-
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            LibroNegocio libroEliminado = new LibroNegocio(); 
+            LibroNegocio libroEliminado = new LibroNegocio();
 
-            if (itemSeleccionado()){
+            if (itemSeleccionado())
+            {
                 libroEliminado.EliminarLibroDeBaseDeDatos(libroSeleccionado.Id);
                 cargarDGV();
             }
         }
 
-        //Modificaciones:
-        /*
-            - Manejo de nulos cuando el sistema detecta que no se ha seleccionado ningún libro
-                - itemSeleccionado(): Ahora devuelve true o false. True si se ha seleccionado un libro. Y falso, en caso de que no.
-                - btnVerDetalle_click(): Ahora, pregunta con if si itemSelccionado() es true para mostrar la info sobre algún libro seleccionado.
+        private void cBoxCriterios_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
 
-         */
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (cBoxCriterios.Text.Length == 0 || cBoxOrdenarPor.Text.Length == 0)
+            {
+                MessageBox.Show("Faltan casillas por llenar");
+            }
 
+            if (cBoxCriterios.Text == "Precio Venta" && cBoxOrdenarPor.Text == "Máximos")
+            {
+
+                List<Libro> ListasOrdenadas = new List<Libro>();
+                LibroNegocio ListadoOrder = new LibroNegocio();
+                ListasOrdenadas = ListadoOrder.OrdenamientoPrecioMax();
+                nuevaListaDGV(dgvLibros, ListasOrdenadas);
+            }
+
+            if (cBoxCriterios.Text == "Precio Venta" && cBoxOrdenarPor.Text == "Minímos")
+            {
+                List<Libro> ListasOrdenadas = new List<Libro>();
+                LibroNegocio ListadoOrder = new LibroNegocio();
+                ListasOrdenadas = ListadoOrder.OrdenamientoPrecioMin();
+                nuevaListaDGV(dgvLibros, ListasOrdenadas);
+            }
+
+            if (cBoxCriterios.Text == "Impresiones" && cBoxOrdenarPor.Text == "Máximos")
+            {
+
+                List<Libro> ListasOrdenadas = new List<Libro>();
+                LibroNegocio ListadoOrder = new LibroNegocio();
+                ListasOrdenadas = ListadoOrder.OrdenamientoImpresionesMax();
+                nuevaListaDGV(dgvLibros, ListasOrdenadas);
+            }
+            if (cBoxCriterios.Text == "Impresiones" && cBoxOrdenarPor.Text == "Minímos")
+            {
+                List<Libro> ListasOrdenadas = new List<Libro>();
+                LibroNegocio ListadoOrder = new LibroNegocio();
+                ListasOrdenadas = ListadoOrder.OrdenamientoImpresionesMin();
+                nuevaListaDGV(dgvLibros, ListasOrdenadas);
+            }
+
+            if (cBoxCriterios.Text == "Páginas" && cBoxOrdenarPor.Text == "Minímos")
+            {
+                List<Libro> ListasOrdenadas = new List<Libro>();
+                LibroNegocio ListadoOrder = new LibroNegocio();
+                ListasOrdenadas = ListadoOrder.OrdenamientoPaginasMin();
+                nuevaListaDGV(dgvLibros, ListasOrdenadas);
+            }
+
+            if (cBoxCriterios.Text == "Páginas" && cBoxOrdenarPor.Text == "Máximos")
+            {
+                List<Libro> ListasOrdenadas = new List<Libro>();
+                LibroNegocio ListadoOrder = new LibroNegocio();
+                ListasOrdenadas = ListadoOrder.OrdenamientoPaginasMax();
+                nuevaListaDGV(dgvLibros, ListasOrdenadas);
+            }
+        }
     }
 }

@@ -10,10 +10,10 @@ namespace negocio
 {
     public class LibroNegocio
     {
-        public List<Libro> ListarLibros ()
+        public List<Libro> ListarLibros()
         {
             List<Libro> listaLibros = new List<Libro>();
-            AccesoDatos datos = new AccesoDatos ();
+            AccesoDatos datos = new AccesoDatos();
 
             try
             {
@@ -23,7 +23,7 @@ namespace negocio
 
                 while (datos.Lector.Read())
                 {
-                    Libro libro= new Libro ();
+                    Libro libro = new Libro();
                     libro.Id = (int)datos.Lector["id"];
                     libro.ISBN = (string)datos.Lector["isbn"];
                     libro.Titulo = (string)datos.Lector["titulo"];
@@ -40,7 +40,7 @@ namespace negocio
                     libro.Idioma = new Idioma();
                     libro.Idioma.idioma = (string)datos.Lector["idioma"];
                     libro.Idioma.Id_idioma = (int)datos.Lector["id_idioma"];
-                    if(datos.Lector["cant_paginas"] != DBNull.Value)
+                    if (datos.Lector["cant_paginas"] != DBNull.Value)
                     {
                         libro.Cant_paginas = (int)datos.Lector["cant_paginas"];
                     }
@@ -87,7 +87,7 @@ namespace negocio
                 datos.setParametro("@cantPaginas", nuevoLibro.Cant_paginas);
                 datos.setParametro("@cantImpresiones", nuevoLibro.Cant_impresiones);
                 datos.setParametro("@idEditorial", nuevoLibro.Editorial.Id_editorial);
-                
+
                 datos.ejecutarInstruccion();
             }
             catch (Exception ex)
@@ -103,15 +103,18 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
+
                 {
-                    datos.setConsulta("DELETE FROM Libro WHERE Id = @LibroId");
+
+                    // Crear y ejecutar la consulta DELETE
+                    datos.setConsulta("DELETE FROM Libro WHERE id_libro = @LibroId");
                     datos.setParametro("@LibroId", libroId);
                     datos.ejecutarInstruccion();
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally { datos.cerrarConexion(); }
 
@@ -143,9 +146,383 @@ namespace negocio
 
                 throw;
             }
-            finally { datos.cerrarConexion();}
+            finally { datos.cerrarConexion(); }
 
         }
-        
-}
+
+        // Lista de libros oredenados
+
+
+        public List<Libro> OrdenamientoPrecioMax()
+        {
+            List<Libro> ListaM = new List<Libro>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+
+                datos.setConsulta("select id_libro id, isbn, titulo, A.nombre autor, L.id_autor id_autor, anio_edicion,E.nombre editorial, L.id_editorial id_editorial, nro_edicion, precio_venta, precio_compra, I.nombre idioma, L.id_idioma id_idioma, cant_paginas, cant_impresiones from Libro L, Autor A, Editorial E, Idioma I where L.id_autor = A.id_autor AND L.id_editorial = E.id_editorial AND L.id_idioma = I.id_idioma order by precio_venta DESC ");
+
+                datos.ejecutarLector();
+
+                while (datos.Lector.Read())
+                {
+                    Libro listaMp = new Libro();
+                    listaMp.Id = (int)datos.Lector["id"];
+                    listaMp.ISBN = (string)datos.Lector["isbn"];
+                    listaMp.Titulo = (string)datos.Lector["titulo"];
+                    listaMp.Autor = new Autor();
+                    listaMp.Autor.Nombre = (string)datos.Lector["autor"];
+                    listaMp.Autor.Id_autor = (int)datos.Lector["id_autor"];
+                    listaMp.Anio_edicion = (int)datos.Lector["anio_edicion"];
+                    listaMp.Editorial = new Editorial();
+                    listaMp.Editorial.Nombre = (string)datos.Lector["editorial"];
+                    listaMp.Editorial.Id_editorial = (int)datos.Lector["id_editorial"];
+                    listaMp.Nro_edicion = (int)datos.Lector["nro_edicion"];
+                    listaMp.Precio_venta = (decimal)datos.Lector["precio_venta"];
+                    listaMp.Precio_compra = (decimal)datos.Lector["precio_compra"];
+                    listaMp.Idioma = new Idioma();
+                    listaMp.Idioma.idioma = (string)datos.Lector["idioma"];
+                    listaMp.Idioma.Id_idioma = (int)datos.Lector["id_idioma"];
+                    if (datos.Lector["cant_paginas"] != DBNull.Value)
+                    {
+                        listaMp.Cant_paginas = (int)datos.Lector["cant_paginas"];
+                    }
+                    else
+                    {
+                        listaMp.Cant_paginas = 0;
+                    }
+                    if (datos.Lector["cant_impresiones"] != DBNull.Value)
+                    {
+                        listaMp.Cant_impresiones = (int)datos.Lector["cant_impresiones"];
+
+                    }
+                    else
+                    {
+                        listaMp.Cant_impresiones = 0;
+
+                    }
+
+                    ListaM.Add(listaMp);
+                }
+                return ListaM;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
+        public List<Libro> OrdenamientoPaginasMax()
+        {
+            List<Libro> ListaM = new List<Libro>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+
+                datos.setConsulta("select id_libro id, isbn, titulo, A.nombre autor, L.id_autor id_autor, anio_edicion,E.nombre editorial, L.id_editorial id_editorial, nro_edicion, precio_venta, precio_compra, I.nombre idioma, L.id_idioma id_idioma, cant_paginas, cant_impresiones from Libro L, Autor A, Editorial E, Idioma I where L.id_autor = A.id_autor AND L.id_editorial = E.id_editorial AND L.id_idioma = I.id_idioma order by cant_paginas DESC ");
+
+                datos.ejecutarLector();
+
+                while (datos.Lector.Read())
+                {
+                    Libro listaMp = new Libro();
+                    listaMp.Id = (int)datos.Lector["id"];
+                    listaMp.ISBN = (string)datos.Lector["isbn"];
+                    listaMp.Titulo = (string)datos.Lector["titulo"];
+                    listaMp.Autor = new Autor();
+                    listaMp.Autor.Nombre = (string)datos.Lector["autor"];
+                    listaMp.Autor.Id_autor = (int)datos.Lector["id_autor"];
+                    listaMp.Anio_edicion = (int)datos.Lector["anio_edicion"];
+                    listaMp.Editorial = new Editorial();
+                    listaMp.Editorial.Nombre = (string)datos.Lector["editorial"];
+                    listaMp.Editorial.Id_editorial = (int)datos.Lector["id_editorial"];
+                    listaMp.Nro_edicion = (int)datos.Lector["nro_edicion"];
+                    listaMp.Precio_venta = (decimal)datos.Lector["precio_venta"];
+                    listaMp.Precio_compra = (decimal)datos.Lector["precio_compra"];
+                    listaMp.Idioma = new Idioma();
+                    listaMp.Idioma.idioma = (string)datos.Lector["idioma"];
+                    listaMp.Idioma.Id_idioma = (int)datos.Lector["id_idioma"];
+                    if (datos.Lector["cant_paginas"] != DBNull.Value)
+                    {
+                        listaMp.Cant_paginas = (int)datos.Lector["cant_paginas"];
+                    }
+                    else
+                    {
+                        listaMp.Cant_paginas = 0;
+                    }
+                    if (datos.Lector["cant_impresiones"] != DBNull.Value)
+                    {
+                        listaMp.Cant_impresiones = (int)datos.Lector["cant_impresiones"];
+
+                    }
+                    else
+                    {
+                        listaMp.Cant_impresiones = 0;
+
+                    }
+
+                    ListaM.Add(listaMp);
+                }
+                return ListaM;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
+        public List<Libro> OrdenamientoImpresionesMax()
+        {
+            List<Libro> ListaM = new List<Libro>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+
+                datos.setConsulta("select id_libro id, isbn, titulo, A.nombre autor, L.id_autor id_autor, anio_edicion,E.nombre editorial, L.id_editorial id_editorial, nro_edicion, precio_venta, precio_compra, I.nombre idioma, L.id_idioma id_idioma, cant_paginas, cant_impresiones from Libro L, Autor A, Editorial E, Idioma I where L.id_autor = A.id_autor AND L.id_editorial = E.id_editorial AND L.id_idioma = I.id_idioma order by cant_impresiones DESC ");
+
+                datos.ejecutarLector();
+
+                while (datos.Lector.Read())
+                {
+                    Libro listaMp = new Libro();
+                    listaMp.Id = (int)datos.Lector["id"];
+                    listaMp.ISBN = (string)datos.Lector["isbn"];
+                    listaMp.Titulo = (string)datos.Lector["titulo"];
+                    listaMp.Autor = new Autor();
+                    listaMp.Autor.Nombre = (string)datos.Lector["autor"];
+                    listaMp.Autor.Id_autor = (int)datos.Lector["id_autor"];
+                    listaMp.Anio_edicion = (int)datos.Lector["anio_edicion"];
+                    listaMp.Editorial = new Editorial();
+                    listaMp.Editorial.Nombre = (string)datos.Lector["editorial"];
+                    listaMp.Editorial.Id_editorial = (int)datos.Lector["id_editorial"];
+                    listaMp.Nro_edicion = (int)datos.Lector["nro_edicion"];
+                    listaMp.Precio_venta = (decimal)datos.Lector["precio_venta"];
+                    listaMp.Precio_compra = (decimal)datos.Lector["precio_compra"];
+                    listaMp.Idioma = new Idioma();
+                    listaMp.Idioma.idioma = (string)datos.Lector["idioma"];
+                    listaMp.Idioma.Id_idioma = (int)datos.Lector["id_idioma"];
+                    if (datos.Lector["cant_paginas"] != DBNull.Value)
+                    {
+                        listaMp.Cant_paginas = (int)datos.Lector["cant_paginas"];
+                    }
+                    else
+                    {
+                        listaMp.Cant_paginas = 0;
+                    }
+                    if (datos.Lector["cant_impresiones"] != DBNull.Value)
+                    {
+                        listaMp.Cant_impresiones = (int)datos.Lector["cant_impresiones"];
+
+                    }
+                    else
+                    {
+                        listaMp.Cant_impresiones = 0;
+
+                    }
+
+                    ListaM.Add(listaMp);
+                }
+                return ListaM;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
+        public List<Libro> OrdenamientoPrecioMin()
+        {
+            List<Libro> ListaM = new List<Libro>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+
+                datos.setConsulta("select id_libro id, isbn, titulo, A.nombre autor, L.id_autor id_autor, anio_edicion,E.nombre editorial, L.id_editorial id_editorial, nro_edicion, precio_venta, precio_compra, I.nombre idioma, L.id_idioma id_idioma, cant_paginas, cant_impresiones from Libro L, Autor A, Editorial E, Idioma I where L.id_autor = A.id_autor AND L.id_editorial = E.id_editorial AND L.id_idioma = I.id_idioma order by precio_venta ASC ");
+
+                datos.ejecutarLector();
+
+                while (datos.Lector.Read())
+                {
+                    Libro listaMp = new Libro();
+                    listaMp.Id = (int)datos.Lector["id"];
+                    listaMp.ISBN = (string)datos.Lector["isbn"];
+                    listaMp.Titulo = (string)datos.Lector["titulo"];
+                    listaMp.Autor = new Autor();
+                    listaMp.Autor.Nombre = (string)datos.Lector["autor"];
+                    listaMp.Autor.Id_autor = (int)datos.Lector["id_autor"];
+                    listaMp.Anio_edicion = (int)datos.Lector["anio_edicion"];
+                    listaMp.Editorial = new Editorial();
+                    listaMp.Editorial.Nombre = (string)datos.Lector["editorial"];
+                    listaMp.Editorial.Id_editorial = (int)datos.Lector["id_editorial"];
+                    listaMp.Nro_edicion = (int)datos.Lector["nro_edicion"];
+                    listaMp.Precio_venta = (decimal)datos.Lector["precio_venta"];
+                    listaMp.Precio_compra = (decimal)datos.Lector["precio_compra"];
+                    listaMp.Idioma = new Idioma();
+                    listaMp.Idioma.idioma = (string)datos.Lector["idioma"];
+                    listaMp.Idioma.Id_idioma = (int)datos.Lector["id_idioma"];
+                    if (datos.Lector["cant_paginas"] != DBNull.Value)
+                    {
+                        listaMp.Cant_paginas = (int)datos.Lector["cant_paginas"];
+                    }
+                    else
+                    {
+                        listaMp.Cant_paginas = 0;
+                    }
+                    if (datos.Lector["cant_impresiones"] != DBNull.Value)
+                    {
+                        listaMp.Cant_impresiones = (int)datos.Lector["cant_impresiones"];
+
+                    }
+                    else
+                    {
+                        listaMp.Cant_impresiones = 0;
+
+                    }
+
+                    ListaM.Add(listaMp);
+                }
+                return ListaM;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
+        public List<Libro> OrdenamientoPaginasMin()
+        {
+            List<Libro> ListaM = new List<Libro>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+
+                datos.setConsulta("select id_libro id, isbn, titulo, A.nombre autor, L.id_autor id_autor, anio_edicion,E.nombre editorial, L.id_editorial id_editorial, nro_edicion, precio_venta, precio_compra, I.nombre idioma, L.id_idioma id_idioma, cant_paginas, cant_impresiones from Libro L, Autor A, Editorial E, Idioma I where L.id_autor = A.id_autor AND L.id_editorial = E.id_editorial AND L.id_idioma = I.id_idioma order by cant_paginas ASC ");
+
+                datos.ejecutarLector();
+
+                while (datos.Lector.Read())
+                {
+                    Libro listaMp = new Libro();
+                    listaMp.Id = (int)datos.Lector["id"];
+                    listaMp.ISBN = (string)datos.Lector["isbn"];
+                    listaMp.Titulo = (string)datos.Lector["titulo"];
+                    listaMp.Autor = new Autor();
+                    listaMp.Autor.Nombre = (string)datos.Lector["autor"];
+                    listaMp.Autor.Id_autor = (int)datos.Lector["id_autor"];
+                    listaMp.Anio_edicion = (int)datos.Lector["anio_edicion"];
+                    listaMp.Editorial = new Editorial();
+                    listaMp.Editorial.Nombre = (string)datos.Lector["editorial"];
+                    listaMp.Editorial.Id_editorial = (int)datos.Lector["id_editorial"];
+                    listaMp.Nro_edicion = (int)datos.Lector["nro_edicion"];
+                    listaMp.Precio_venta = (decimal)datos.Lector["precio_venta"];
+                    listaMp.Precio_compra = (decimal)datos.Lector["precio_compra"];
+                    listaMp.Idioma = new Idioma();
+                    listaMp.Idioma.idioma = (string)datos.Lector["idioma"];
+                    listaMp.Idioma.Id_idioma = (int)datos.Lector["id_idioma"];
+                    if (datos.Lector["cant_paginas"] != DBNull.Value)
+                    {
+                        listaMp.Cant_paginas = (int)datos.Lector["cant_paginas"];
+                    }
+                    else
+                    {
+                        listaMp.Cant_paginas = 0;
+                    }
+                    if (datos.Lector["cant_impresiones"] != DBNull.Value)
+                    {
+                        listaMp.Cant_impresiones = (int)datos.Lector["cant_impresiones"];
+
+                    }
+                    else
+                    {
+                        listaMp.Cant_impresiones = 0;
+
+                    }
+
+                    ListaM.Add(listaMp);
+                }
+                return ListaM;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
+        public List<Libro> OrdenamientoImpresionesMin()
+        {
+            List<Libro> ListaM = new List<Libro>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+
+                datos.setConsulta("select id_libro id, isbn, titulo, A.nombre autor, L.id_autor id_autor, anio_edicion,E.nombre editorial, L.id_editorial id_editorial, nro_edicion, precio_venta, precio_compra, I.nombre idioma, L.id_idioma id_idioma, cant_paginas, cant_impresiones from Libro L, Autor A, Editorial E, Idioma I where L.id_autor = A.id_autor AND L.id_editorial = E.id_editorial AND L.id_idioma = I.id_idioma order by cant_impresiones ASC ");
+
+                datos.ejecutarLector();
+
+                while (datos.Lector.Read())
+                {
+                    Libro listaMp = new Libro();
+                    listaMp.Id = (int)datos.Lector["id"];
+                    listaMp.ISBN = (string)datos.Lector["isbn"];
+                    listaMp.Titulo = (string)datos.Lector["titulo"];
+                    listaMp.Autor = new Autor();
+                    listaMp.Autor.Nombre = (string)datos.Lector["autor"];
+                    listaMp.Autor.Id_autor = (int)datos.Lector["id_autor"];
+                    listaMp.Anio_edicion = (int)datos.Lector["anio_edicion"];
+                    listaMp.Editorial = new Editorial();
+                    listaMp.Editorial.Nombre = (string)datos.Lector["editorial"];
+                    listaMp.Editorial.Id_editorial = (int)datos.Lector["id_editorial"];
+                    listaMp.Nro_edicion = (int)datos.Lector["nro_edicion"];
+                    listaMp.Precio_venta = (decimal)datos.Lector["precio_venta"];
+                    listaMp.Precio_compra = (decimal)datos.Lector["precio_compra"];
+                    listaMp.Idioma = new Idioma();
+                    listaMp.Idioma.idioma = (string)datos.Lector["idioma"];
+                    listaMp.Idioma.Id_idioma = (int)datos.Lector["id_idioma"];
+                    if (datos.Lector["cant_paginas"] != DBNull.Value)
+                    {
+                        listaMp.Cant_paginas = (int)datos.Lector["cant_paginas"];
+                    }
+                    else
+                    {
+                        listaMp.Cant_paginas = 0;
+                    }
+                    if (datos.Lector["cant_impresiones"] != DBNull.Value)
+                    {
+                        listaMp.Cant_impresiones = (int)datos.Lector["cant_impresiones"];
+
+                    }
+                    else
+                    {
+                        listaMp.Cant_impresiones = 0;
+
+                    }
+
+                    ListaM.Add(listaMp);
+                }
+                return ListaM;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+    }
 }
